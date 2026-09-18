@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SHADOW — connected information</title>
+  <link rel="stylesheet" href="/static/style.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.9.0/d3.min.js"></script>
+</head>
+<body>
+
+<header class="top">
+  <div class="brand">
+    <span class="logo" aria-hidden="true"></span>
+    <div>
+      <h1>SHADOW</h1>
+      <p class="tagline">What does your digital footprint reveal when everything is connected?</p>
+    </div>
+  </div>
+  <p class="privacy">Nothing you type is analysed or sent anywhere. SHADOW only looks at <em>which kinds</em> of information are public — the values are labels for the graph.</p>
+</header>
+
+<main class="layout">
+
+  <!-- ─────────── 1. Add information ─────────── -->
+  <section class="panel" id="panel-info">
+    <h2><span class="step">1</span> Add information</h2>
+    <p class="hint">Tick what someone could find about you online. Type an example value if you like.</p>
+
+    <div class="presets" id="presets">
+      <button data-preset="">Empty</button>
+      <button data-preset="school,city">School + city</button>
+      <button data-preset="username,public_profile,school,hobby,schedule,photos,friends,city">Typical profile</button>
+      <button data-preset="all">Everything</button>
+    </div>
+
+    <div id="catalogue"></div>
+  </section>
+
+  <!-- ─────────── 2. Graph ─────────── -->
+  <section class="panel graph-panel" id="panel-graph">
+    <h2><span class="step">2</span> Your information graph</h2>
+    <p class="hint">Each node is a piece of information; each line is a way one leads to another. Click a node to remove it.</p>
+    <div class="legend">
+      <span class="legend-item"><i style="--c:var(--identity)"></i>identity</span>
+      <span class="legend-item"><i style="--c:var(--location)"></i>location</span>
+      <span class="legend-item"><i style="--c:var(--routine)"></i>routine</span>
+      <span class="legend-item"><i style="--c:var(--social)"></i>social</span>
+      <span class="legend-item"><i class="trace-swatch"></i>trace</span>
+    </div>
+    <div class="graph-wrap">
+      <svg id="graph" role="img" aria-label="Information relationship graph"></svg>
+      <div class="graph-empty" id="graph-empty">Nothing shared yet. Add information on the left, or pick a preset.</div>
+    </div>
+    <div class="tooltip" id="tooltip" hidden></div>
+  </section>
+
+  <!-- ─────────── 3. Exposure ─────────── -->
+  <section class="panel" id="panel-exposure">
+    <h2><span class="step">3</span> Exposure</h2>
+
+    <div class="score-card">
+      <svg class="ring" viewBox="0 0 120 120" aria-hidden="true">
+        <circle class="ring-bg" cx="60" cy="60" r="52"></circle>
+        <circle class="ring-fg" id="ring" cx="60" cy="60" r="52"></circle>
+      </svg>
+      <div class="score-text">
+        <div class="score-level" id="level">Nothing shared</div>
+        <div class="score-num"><span id="score">0</span><small>/100</small></div>
+        <div class="compare" id="compare" hidden></div>
+      </div>
+    </div>
+
+    <h3>Why?</h3>
+    <ul class="why" id="why"></ul>
+
+    <h3>Sensitive combinations <span class="count" id="findings-count"></span></h3>
+    <p class="hint">Hover one to see it on the graph.</p>
+    <ul class="findings" id="findings"></ul>
+
+    <h3>Trace</h3>
+    <div class="trace" id="trace"><p class="muted">No path from an online identity to a real place yet.</p></div>
+
+    <h2 class="mt"><span class="step">4</span> Experiment</h2>
+    <p class="hint">What single change would matter most?</p>
+    <div class="whatif">
+      <div>
+        <h4>Remove</h4>
+        <ul id="whatif-remove"></ul>
+      </div>
+      <div>
+        <h4>Add</h4>
+        <ul id="whatif-add"></ul>
+      </div>
+    </div>
+
+    <div class="pin-row">
+      <button id="pin">Pin as “before”</button>
+      <button id="unpin" hidden>Clear pin</button>
+    </div>
+
+    <h3>Saved scenarios</h3>
+    <form class="save-row" id="save-form">
+      <input id="save-name" placeholder="Scenario name" maxlength="40">
+      <button type="submit">Save</button>
+    </form>
+    <ul class="scenarios" id="scenarios"></ul>
+  </section>
+
+</main>
+
+<script src="/static/app.js"></script>
+</body>
+</html>
